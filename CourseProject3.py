@@ -1,6 +1,4 @@
 #
-#
-#
 # write the line of code to import the datetime library (Hint: look at week 1 labs)
 from datetime import datetime
 def GetEmpName():
@@ -48,6 +46,7 @@ def printinfo(DetailsPrinted):
             continue  # skip next if statement and re-start loop
     while True:
         # write the line of code to read a record from EmpFile and assign it to EmpDetail
+        EmpDetail = EmpFile.readline()
         EmpFile = open("Employees.txt","r")
         if not EmpDetail:
             break
@@ -55,6 +54,7 @@ def printinfo(DetailsPrinted):
         EmpDetail = EmpDetail.replace("\n", "") #remove carriage return from end of line
 
         #write the line of code to split the record read in on the pipe delimiter and assign it to EmpList
+        EmpList = EmpDetail.split("|")
         fromdate = EmpList[0]
         if (str(rundate).upper() != "ALL"):
             checkdate = datetime.strptime(fromdate, "%m/%d/%Y")
@@ -96,8 +96,8 @@ def PrintTotals(EmpTotals):
 
 if __name__ == "__main__":
     # write the line of code to open a file Employees.txt in append mode and assign it to EmpFile
-
-    #EmpDetailList = []
+    EmpFile = open("Employees.txt", "a+") 
+    EmpDetailList = []
     EmpTotals = {}
     DetailsPrinted = False
     while True:
@@ -110,6 +110,10 @@ if __name__ == "__main__":
         taxrate = GetTaxRate()
         ##############################################################
         # write the line of code that will concatenate fromdate, todate, empname, hours, hourlyrate, and taxrate. Pipe delimit each value and add a carriage return to the end of the line
+        EmpDetail = fromdate + "|" + todate  + "|" + empname  + "|" + str(hours)  + "|" + str(hourlyrate)  + "|" + str(taxrate) + "\n"  
+        EmpFile.write(EmpDetail)
+        # close file to save data
+        EmpFile.close()    
         # and assign the line to EmpDetail
  
         # write the liie of code that will write EmpDetail to EmpFile
